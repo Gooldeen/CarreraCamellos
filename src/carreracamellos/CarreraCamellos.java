@@ -38,6 +38,7 @@ public class CarreraCamellos extends JFrame {
         buttonRun.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                detenerHilos();  // Detén hilos anteriores
                 for(Calle calle : calles){
                     calle.reset();
                 }
@@ -50,6 +51,16 @@ public class CarreraCamellos extends JFrame {
 
             }
         });
+    }
+
+    private void detenerHilos() {
+        if (hilosCamellos != null) {
+            for (Thread hilo : hilosCamellos) {
+                if (hilo.isAlive()) {
+                    hilo.interrupt();
+                }
+            }
+        }
     }
 
     private void inicializarCarrera() {
